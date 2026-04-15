@@ -125,7 +125,7 @@ if __name__ == "__main__":
     chunks = chunk_corpus(corpus, strategy="tokens", chunk_size=256, chunk_overlap=32)
     print(f"Created {len(chunks)} chunks")
 
-    # İstatistikler
+    # Statistics
     lengths = [len(c["text"].split()) for c in chunks]
     print(f"Chunk uzunlukları — Ort: {sum(lengths)//len(lengths)}, Min: {min(lengths)}, Max: {max(lengths)}")
 
