@@ -10,7 +10,7 @@ from src.config import OLLAMA_BASE_URL, LLM_MODEL
 
 # Reusable HTTP client — her çağrıda yeni client açmamak için
 # timeout=120 çünkü CPU'da inference yavaş, cevap gelene kadar 1+ dakika sürebilir
-_client = httpx.Client(base_url=OLLAMA_BASE_URL, timeout=120.0)
+_client = httpx.Client(base_url=OLLAMA_BASE_URL, timeout=700.0)
 
 
 # --- Default system prompt ---

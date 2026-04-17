@@ -18,7 +18,7 @@ env/
 
 # Environment
 .venv
-
+.env
 # Data & models (büyük dosyalar — git'e pushlanmaz)
 data/
 *.faiss
