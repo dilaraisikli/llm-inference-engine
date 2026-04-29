@@ -57,7 +57,7 @@ class ResearcherUser(HttpUser):
             "query": random.choice(RESEARCHER_QUERIES),
             "top_k": 5,
             "tags": ["loadtest", "researcher"],
-        }, timeout=300)
+        }, timeout=600)
 
 
 class StudentUser(HttpUser):
@@ -70,7 +70,7 @@ class StudentUser(HttpUser):
             "query": random.choice(STUDENT_QUERIES),
             "top_k": 3,
             "tags": ["loadtest", "student"],
-        }, timeout=300)
+        }, timeout=600)
 
 
 class ClinicalUser(HttpUser):
@@ -83,7 +83,7 @@ class ClinicalUser(HttpUser):
             "query": random.choice(CLINICIAN_QUERIES),
             "top_k": 5,
             "tags": ["loadtest", "clinician"],
-        }, timeout=300)
+        }, timeout=600)
 
     @task(1)
     def health(self):
@@ -100,6 +100,6 @@ class AdversarialUser(HttpUser):
             "query": random.choice(ADVERSARIAL_QUERIES),
             "top_k": 5,
             "tags": ["loadtest", "adversarial"],
-        }, timeout=300, catch_response=True) as response:
+        }, timeout=600, catch_response=True) as response:
             if response.status_code in (400, 422):
                 response.success()

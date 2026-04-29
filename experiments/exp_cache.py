@@ -14,10 +14,10 @@ from src.tracing import RAGTrace, flush
 _cache: dict[str, str] = {}
 
 TEST_QUERIES = [
-    "What optimizer was used for training?",
-    "What optimizer was used for training?",  # aynı soru — cache hit olmalı
-    "What evaluation metrics were reported?",
-    "What evaluation metrics were reported?",  # cache hit
+    "What is the seed lexicon?",     
+    "What is the seed lexicon?",    
+    "How are relations used to propagate polarity?",
+    "How are relations used to propagate polarity?"
 ]
 
 

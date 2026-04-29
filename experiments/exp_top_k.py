@@ -9,9 +9,9 @@ from src.generator import generate
 from src.tracing import RAGTrace, flush
 
 TEST_QUERIES = [
-    "What optimizer was used for training?",
-    "What evaluation metrics were reported?",
-    "What dataset was used for experiments?",
+    "What is the seed lexicon?",         
+    "How are relations used to propagate polarity?",
+    "What are labels available in dataset for supervision?",
 ]
 
 TOP_K_VALUES = [2, 5, 10]

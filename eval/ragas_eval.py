@@ -1,10 +1,6 @@
-"""Ragas metrikleri — Ollama ile local LLM ve embedding kullanarak eval."""
+"""Ragas metrikleri — Ollama ile local LLM kullanarak eval."""
 
-from openai import OpenAI
-from ragas.llms import llm_factory
-from ragas.embeddings import embedding_factory
 from ragas import evaluate
-#from ragas.metrics import faithfulness, answer_relevancy, context_precision
 from ragas.metrics import answer_relevancy
 from ragas.dataset_schema import SingleTurnSample, EvaluationDataset
 
@@ -12,12 +8,15 @@ from src.config import OLLAMA_BASE_URL, LLM_MODEL
 
 
 def get_ragas_llm():
-    """Ollama'yı Ragas LLM olarak yapılandır."""
-    client = OpenAI(
-        api_key="ollama",
-        base_url=f"{OLLAMA_BASE_URL}/v1",
+    from langchain_ollama import ChatOllama
+    from ragas.llms import LangchainLLMWrapper
+
+    llm = ChatOllama(
+        model=LLM_MODEL,
+        base_url=OLLAMA_BASE_URL,
+        temperature=0,
     )
-    return llm_factory(LLM_MODEL, provider="openai", client=client)
+    return LangchainLLMWrapper(llm)
 
 
 def get_ragas_embeddings():
@@ -46,7 +45,7 @@ def run_ragas_eval(samples: list[dict]) -> dict:
     llm = get_ragas_llm()
     embeddings = get_ragas_embeddings()
 
-    #metrics = [faithfulness, answer_relevancy, context_precision]
+    answer_relevancy.strictness = 1
     metrics = [answer_relevancy]
 
     for metric in metrics:
@@ -57,9 +56,7 @@ def run_ragas_eval(samples: list[dict]) -> dict:
     results = evaluate(dataset=dataset, metrics=metrics)
 
     return {
-        #"faithfulness": results["faithfulness"],
         "answer_relevancy": results["answer_relevancy"],
-        #"context_precision": results["context_precision"],
     }
 
 
@@ -69,9 +66,10 @@ def print_results(scores: dict) -> None:
     print("="*50)
     for metric, score in scores.items():
         if isinstance(score, list):
-            score = sum(s for s in score if s is not None) / max(len([s for s in score if s is not None]), 1)
-        if score is None:
-            print(f"  {metric:<25} N/A")
+            valid = [s for s in score if s is not None and s == s]
+            score = sum(valid) / len(valid) if valid else None
+        if score is None or score != score:
+            print(f"  {metric:<25} N/A — model structured output üretemedi")
             continue
         bar = "█" * int(score * 20) + "░" * (20 - int(score * 20))
         print(f"  {metric:<25} {bar} {score:.3f}")

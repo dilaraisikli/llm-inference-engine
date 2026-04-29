@@ -33,5 +33,5 @@ numpy>=1.26,<2.0
 tiktoken>=0.7,<1.0            # token sayma
 
 # === Opsiyonel: Prometheus metrics ===
-# prometheus-client>=0.21,<1.0
-# prometheus-fastapi-instrumentator>=7.0,<8.0
+prometheus-client>=0.21,<1.0
+prometheus-fastapi-instrumentator>=7.0,<8.0
