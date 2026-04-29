@@ -1,28 +1,30 @@
 # rag-observability-lab requirements
-# Python version: 3.11.x (önerilen: 3.11.9)
-# LLM: Ollama + Llama 3.2 (local, CPU)
+# Python version: 3.12.7
+# LLM: Ollama + Llama 3 (local, CPU)
 
 # === Core RAG ===
 faiss-cpu>=1.9.0,<2.0
 sentence-transformers>=3.3,<4.0
-datasets>=4.0                  # HuggingFace datasets (SciFact) — ragas 0.4+ bunu istiyor
+datasets>=4.0
 
 # === API ===
 fastapi>=0.115,<1.0
 uvicorn[standard]>=0.32,<1.0
 pydantic>=2.9,<3.0
-httpx>=0.27,<1.0              # Ollama HTTP client + async
+httpx>=0.27,<1.0
 
 # === LLM ===
 # Ollama'yı https://ollama.com adresinden indir
-# Sonra terminalde: ollama pull llama3.2:3b
-# NOT: openai SDK'ya gerek yok — Ollama kendi REST API'sini sunar
+# ollama pull llama3.1:8b
 
 # === Observability ===
 langfuse>=2.50,<5.0
 
 # === Evaluation ===
 ragas>=0.4,<1.0
+openai>=1.50,<2.0             # Ragas'ın Ollama ile konuşması için
+langchain-ollama>=0.3,<1.0    # Ragas LLM wrapper
+langchain-openai>=0.3,<1.0    # Ragas embedding wrapper
 
 # === Load Testing ===
 locust>=2.31,<3.0
@@ -30,8 +32,12 @@ locust>=2.31,<3.0
 # === Utilities ===
 python-dotenv>=1.0,<2.0
 numpy>=1.26,<2.0
-tiktoken>=0.7,<1.0            # token sayma
+tiktoken>=0.7,<1.0
 
-# === Opsiyonel: Prometheus metrics ===
+# === Monitoring ===
 prometheus-client>=0.21,<1.0
 prometheus-fastapi-instrumentator>=7.0,<8.0
+
+# === Testing ===
+pytest>=8.3,<9.0
+pytest-asyncio>=0.24,<1.0
