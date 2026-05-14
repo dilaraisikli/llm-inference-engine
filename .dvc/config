@@ -1,0 +1,7 @@
+[core]
+    remote = s3storage
+['remote "local_storage"']
+    url = C:\dvc-storage
+['remote "s3storage"']
+    url = s3://rag-observability-lab-data/dvc
+    region = eu-north-1
