@@ -87,3 +87,16 @@ def check_ollama_health() -> bool:
         return True
     except Exception:
         return False
+    
+if __name__ == "__main__":
+    from src.vector_store import FAISSStore
+    store = FAISSStore.load()
+    query = "What optimizer was used for training?"
+    results = store.search(query, top_k=3)
+    print(f"Retrieved {len(results)} chunks")
+    print("Generating with Bedrock Nova Micro...")
+    result = generate(query=query, context_chunks=results)
+    print("\n" + "="*60)
+    print(result["answer"])
+    print("="*60)
+    print(f"Duration: {result['total_duration_ms']:.0f} ms")
