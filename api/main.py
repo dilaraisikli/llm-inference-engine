@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from api.routes import router
 from src.vector_store import get_store
-from src.generator import check_ollama_health
+
 from src.tracing import flush
 
 
@@ -20,11 +20,8 @@ async def lifespan(app: FastAPI):
         print(f"FAISS index ready: {store.index.ntotal} vectors")
     except FileNotFoundError:
         print("FAISS index not found! Run: python -m src.vector_store")
-
-    if check_ollama_health():
-        print("Ollama OK")
-    else:
-        print("Ollama not reachable at localhost:11434")
+    
+    print("Bedrock Nova Micro ready")
 
     yield
 

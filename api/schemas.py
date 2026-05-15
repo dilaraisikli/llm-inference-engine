@@ -27,6 +27,6 @@ class AskResponse(BaseModel):
 
 class HealthResponse(BaseModel):
     status: str
-    ollama: bool
+    bedrock: bool
     index_loaded: bool
     index_size: int

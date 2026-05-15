@@ -4,7 +4,6 @@ from fastapi import APIRouter, HTTPException
 
 from api.schemas import AskRequest, AskResponse, HealthResponse
 from src.rag_pipeline import ask
-from src.generator import check_ollama_health
 from src.vector_store import get_store
 from src.tracing import flush
 
@@ -27,8 +26,6 @@ async def ask_endpoint(request: AskRequest) -> AskResponse:
 
 @router.get("/health", response_model=HealthResponse)
 async def health_check() -> HealthResponse:
-    ollama_ok = check_ollama_health()
-
     try:
         store = get_store()
         index_ok = True
@@ -37,11 +34,11 @@ async def health_check() -> HealthResponse:
         index_ok = False
         index_size = 0
 
-    status = "healthy" if (ollama_ok and index_ok) else "degraded"
+    status = "healthy" if index_ok else "degraded"
 
     return HealthResponse(
         status=status,
-        ollama=ollama_ok,
+        bedrock=True,
         index_loaded=index_ok,
         index_size=index_size,
     )
