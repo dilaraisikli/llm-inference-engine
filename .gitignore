@@ -20,10 +20,10 @@ env/
 .venv
 .env
 # Data & models (büyük dosyalar — git'e pushlanmaz)
-data/
-*.faiss
-*.pkl
-*.bin
+data/**
+!data/**/*.dvc
+!data/faiss_index/
+!data/faiss_index/*.dvc
 
 # Jupyter
 .ipynb_checkpoints/
