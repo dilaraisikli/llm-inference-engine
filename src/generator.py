@@ -40,7 +40,7 @@ def build_prompt(query: str, context_chunks: list[dict]) -> str:
 def generate(
     query: str,
     context_chunks: list[dict],
-    model: str = "amazon.nova-micro-v1:0",
+    model: str = "eu.amazon.nova-micro-v1:0",
     system_prompt: str = SYSTEM_PROMPT,
 ) -> dict:
     """AWS Bedrock ile cevap üret."""
