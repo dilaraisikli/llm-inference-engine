@@ -1,20 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    """LLM generation module — AWS Bedrock Nova Micro.
+"""LLM generation module — AWS Bedrock Nova Micro.
 
 Ollama yerine AWS Bedrock kullanıyoruz.
 Model: amazon.nova-micro-v1:0
